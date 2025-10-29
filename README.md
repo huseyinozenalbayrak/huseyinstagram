@@ -1,55 +1,116 @@
 # Huseyinstagram
 
-Huseyinstagram is a simple Instagram clone mobile app written in Swift. It includes authentication, posting photos, liking other people's photos, and logout functions.
+A lightweight Instagram clone for iOS built with **Swift (UIKit)** and **Firebase**.  
+It includes user authentication, feed display, photo upload with captions, and like functionality.
 
+## ✨ Features
+- 🔐 **Authentication** — Sign up, sign in, and sign out with Firebase Auth
+- 🏠 **Feed** — Display posts with user email, image, caption, and like count
+- ⬆️ **Upload** — Select an image, add a caption, and upload to Firebase Storage
+- ❤️ **Likes** — Basic like functionality using Firestore
+- ⚙️ **Clean structure** — Organized view controllers and reusable components
+- 📦 **Dependency management** via CocoaPods
 
-# Features
-- **Authentication:** Users can sign up and log in securely to access the app's features.
+## 🧰 Tech Stack
+- **Language:** Swift 5, UIKit  
+- **Minimum iOS:** 13.0+  
+- **Backend:** Firebase (Auth, Firestore, Storage)  
+- **Dependency Manager:** CocoaPods  
 
-- **Post Photos:** Users can upload their photos to share with others.
+## 📸 Screenshots
+<p align="center">
+  <img src="docs/screenshots/login.png" width="250" />
+  <img src="docs/screenshots/feed.png"  width="250" />
+  <img src="docs/screenshots/upload.png" width="250" />
+</p>
 
-- **Like Photos:** Users can like photos posted by other users.
+## 🚀 Getting Started
 
-- **Log Out:** Users can log out of their accounts to secure their session.
-
-
-# Technologies Used
-- **Langugae:** Swift
-- **Authentication:** Firebase Authentication
-- **Database:** Firestore Database
-- **Storage:** Firebase Storage
-
-
-# Screenshots
-<img width="376" alt="1" src="https://github.com/huseyinozenalbayrak/Huseyinstagram/assets/135959878/74cfaa11-18b4-4c20-a78e-c5d7ea4268a6">
-<img width="379" alt="2" src="https://github.com/huseyinozenalbayrak/Huseyinstagram/assets/135959878/145af7aa-95a5-441e-9ce4-9be5c6775da6">
-<img width="381" alt="3" src="https://github.com/huseyinozenalbayrak/Huseyinstagram/assets/135959878/c22c850a-a19b-4d73-9ea1-fcb6dfa28132">
-<img width="378" alt="4" src="https://github.com/huseyinozenalbayrak/Huseyinstagram/assets/135959878/630ce8bd-8250-4ff9-a56c-395627f60ae5">
-
-
-# Installation
-- Clone the repository to your local machine:
+### 1) Clone
+```bash
+git clone https://github.com/<your-username>/<your-repo>.git
+cd <your-repo>
 ```
-git clone https://github.com/huseyinozenalbayrak/Huseyinstagram.git
+
+### 2) Firebase Setup
+
+- Go to **Firebase Console** → Create a new project.  
+- Add an iOS app with **Bundle ID = com.huseyinozenalbayrak.Huseyinstagram**
+- Download the `GoogleService-Info.plist` file and add it to your **Xcode target**  
+  (Make sure it appears in *Build Phases → Copy Bundle Resources*)
+- Enable **Email/Password Authentication**
+- Enable **Firestore** and **Storage**, and tighten rules as below:
+
+#### Firestore Rules
+```js
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
 ```
-- Open the project folder in Xcode.
 
-- Build and run the project on a simulator or a physical device.
+#### Storage Rules
+```js
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+```
 
+> 💡 **Note:** `GoogleService-Info.plist` is not secret, but it is usually excluded from public repos.
 
-# Usage
-- **Sign Up or Log In:** If you're a new user, sign up for an account. Otherwise, log in with your existing credentials.
+### 3) Install Dependencies (CocoaPods)
+```bash
+sudo gem install cocoapods   # if not installed
+pod install                  # Apple Silicon: arch -arm64 pod install
+open Huseyinstagram.xcworkspace
+```
 
-- **Post Photos:** Share your photos by uploading them using the app's interface.
+### 4) Run the App
+- Scheme: **Huseyinstagram**
+- Device: iPhone Simulator or real device
+- Build & Run (⌘R)
 
-- **Like Photos:** Browse through photos posted by other users and like them to show your appreciation.
+## 🧪 Project Structure
+```
+Huseyinstagram/
+  ├─ AppDelegate.swift
+  ├─ SceneDelegate.swift
+  ├─ ViewController.swift
+  ├─ FeedVC.swift
+  ├─ UploadVC.swift
+  ├─ SettingsVC.swift
+  ├─ CustomCell.swift
+  ├─ Assets.xcassets
+  ├─ Main.storyboard
+  └─ GoogleService-Info.plist  # (not tracked)
+```
 
-- **Log Out:** When you're done using the app, log out to secure your session.
+## 🔒 Security Checklist
+- [ ] Firestore/Storage rules require authenticated users
+- [ ] API key restricted by **API restrictions** and **Application restriction (iOS Bundle ID)**
+- [ ] App Check enabled (optional but recommended)
+- [ ] `GoogleService-Info.plist` is **ignored** in version control
 
+## 🛠️ Useful Scripts
+```bash
+# Clean Pods and reinstall
+pod deintegrate && rm -rf Pods Podfile.lock *.xcworkspace && pod install
 
-# Contributing
-Contributions to this project are welcome! If you have any suggestions, bug fixes, or feature enhancements, feel free to open an issue or create a pull request.
+# Clear DerivedData
+rm -rf ~/Library/Developer/Xcode/DerivedData/*
+```
 
+## 🤝 Contributing
+Pull requests are welcome. Please use the fork → feature branch → PR workflow.
 
-# License
-This project is licensed under the MIT License. See the LICENSE file for details.
+## 📄 License
+MIT
