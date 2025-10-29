@@ -1,0 +1,66 @@
+# -------------------------
+# macOS genel
+# -------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# -------------------------
+# Xcode / iOS build çıktıları
+# -------------------------
+build/
+Build/
+DerivedData/
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Xcode kullanıcı ayarları (kişisel dosyalar)
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+xcuserdata/
+*.xccheckout
+*.moved-aside
+*.xcuserstate
+*.xcscmblueprint
+
+# Workspace ve proje ara dosyaları
+*.xcworkspace
+!Pods/Pods.xcodeproj
+project.xcworkspace/contents.xcworkspacedata
+project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+
+# Swift Package Manager
+.swiftpm/
+.build/
+
+# Carthage (kullanmıyorsan yine de ignore etmek güvenli)
+Carthage/Build/
+
+# CocoaPods
+Pods/
+Podfile.lock
+# (CI’da deterministik build istiyorsan Podfile.lock’u track edebilirsin; bireysel projede ignore etmek repo’yu sade tutar.)
+
+# Firebase / Google
+# Uygulamada bulunması normal ama public repo için genelde track etmeyiz:
+GoogleService-Info.plist
+
+# Fastlane (kullanıyorsan çıktı klasörleri)
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# Crashlytics
+fabric.properties
+
+# Diğer
+*.orig
+*.swp
+*.tmp
